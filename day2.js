@@ -14,7 +14,7 @@ for (var i = 0; i < presents.length; i++) {
   var plw = 2*l + 2*w;
   var pwh = 2*w + 2*h;
   var phl = 2*h + 2*l;
-  paper += (2*lw + 2*wh + 2*hl + Math.min(lw, wh, hl));
+  paper += (2*lw + 2*wh + 2*hl) + Math.min(lw, wh, hl);
   ribbon += Math.min(plw, pwh, phl) + (l*w*h);
 }
 
