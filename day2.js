@@ -8,14 +8,8 @@ for (var i = 0; i < presents.length; i++) {
   var l = dimensions[0];
   var w = dimensions[1];
   var h = dimensions[2];
-  var lw = l * w;
-  var wh = w * h;
-  var hl = l * h;
-  var plw = 2*l + 2*w;
-  var pwh = 2*w + 2*h;
-  var phl = 2*h + 2*l;
-  paper += (2*lw + 2*wh + 2*hl) + Math.min(lw, wh, hl);
-  ribbon += Math.min(plw, pwh, phl) + (l*w*h);
+  paper += (2*l*w + 2*w*h + 2*h*l) + Math.min(l*w, w*h, h*l);
+  ribbon += Math.min(2*l + 2*w, 2*w + 2*h, 2*h + 2*l) + (l*w*h);
 }
 
 console.log("Part 1:", paper);
