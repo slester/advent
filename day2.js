@@ -4,10 +4,10 @@ var paper = 0;
 var ribbon = 0;
 var presents = input.split(" ");
 for (var i = 0; i < presents.length; i++) {
-  var dimensions = presents[i].split("x");
-  var l = dimensions[0];
-  var w = dimensions[1];
-  var h = dimensions[2];
+  var dimensions = presents[i].split("x").map(function(v) { return parseInt(v); });
+  var l = parseInt(dimensions[0]);
+  var w = parseInt(dimensions[1]);
+  var h = parseInt(dimensions[2]);
   paper += 2*(l*w + w*h + h*l) + Math.min(l*w, w*h, h*l);
   ribbon += 2*Math.min(l + w, w + h, h + l) + (l*w*h);
 }
