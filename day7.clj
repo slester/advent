@@ -25,7 +25,6 @@
 (defn calculate [tree k]
   (let [v (tree k)
         kw (keyword v)]
-    ;; (println (str "Checking tree for " k " with value " v))
     (if (contains? tree kw)
       ; if it's a reference to something else, go fetch that
       (calc-memoized tree kw)
@@ -52,7 +51,7 @@
 
 (def tree (buildTree input))
 (def part1 (calc-memoized tree :a))
-(def part2 (calc-memoized (assoc tree :b "956") :a))
+(def part2 (calc-memoized (assoc tree :b (str part1)) :a))
 
 (println (str "Part 1: " part1))
 (println (str "Part 2: " part2))
