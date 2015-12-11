@@ -2,13 +2,18 @@
 
 (def input "1321131112")
 
-(defn say [n so-far]
-  (let [digits (clojure.string/split n #"")
-        break (split-with #(= (first digits) %) digits)
-        new-so-far (str so-far (count (clojure.string/join "" (break 0))) (first digits))
-        new-n (clojure.string/join "" (break 1))]
-   (if (< 0 (count new-n))
-     (say new-n new-so-far)
-     new-so-far)))
+(defn say [n]
+  (loop [digits n
+         answer ""]
+    (let [break (split-with #(= (first n) %) digits)
+          left (count (break 0))
+          right (break 1)]
+     (if (< 0 (count digits))
+       (recur right (str answer left (first n)))
+       answer))))
 
-(println (str "Part 1: " (count (reduce (fn [output iteration] (println (str "iteration: " iteration)) (say output "")) input (range 40)))))
+(def part1 (count (reduce (fn [output iteration] (say (seq output))) input (range 40))))
+;; (def part2 (count (reduce (fn [output iteration] (say (seq output))) part1 (range 10))))
+
+(println (str "Part 1: " part1))
+(println (str "Part 2: " part2))
