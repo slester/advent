@@ -13,5 +13,18 @@
                                        (keyword (location 2))
                                        (hash-map (keyword (location 1)) (read-string (location 3))))) locations)))
 
-(println locations)
-(println (build-map locations))
+(defn list-cities [location-map] (keys location-map))
+(defn find-route [location-map already-visited start-city distance f]
+  (if (< (count already-visited) (count location-map))
+    (let [city-connections (reduce (fn [l k] (dissoc l k)) (location-map start-city) already-visited)
+          last? (< (count city-connections) 2)
+          next-city (key (apply f val city-connections))
+          leg-distance (city-connections next-city)]
+      (find-route location-map (conj already-visited start-city) next-city (+ distance leg-distance) f))
+    distance))
+
+(def location-map (build-map locations))
+(def cities (list-cities location-map))
+
+(println (str "Part 1: " (apply min (map (fn [city] (find-route location-map '(city) city 0 min-key)) cities))))
+(println (str "Part 2: " (apply max (map (fn [city] (find-route location-map '(city) city 0 max-key)) cities))))
