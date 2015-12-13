@@ -1,5 +1,5 @@
 (require 'leiningen.exec
-				 '[clojure.math.combinatorics :as comb])
+         '[clojure.math.combinatorics :as comb])
 
 (def input "Alice would lose 2 happiness units by sitting next to Bob.
 Alice would lose 62 happiness units by sitting next to Carol.
@@ -68,8 +68,8 @@ Mallory would lose 99 happiness units by sitting next to George.")
 (defn calc-happiness [table p1 p2] (if (or (= p1 :me) (= p2 :me)) 0 (+ (get-in table [p1 p2]) (get-in table [p2 p1]))))
 
 (defn table-happiness [table guests]
-	(let [pairs (concat (partition 2 guests) (partition 2 (drop 1 guests)) (list (list (first guests) (last guests))))]
-		(reduce (fn [sum pair] (+ sum (calc-happiness table (first pair) (last pair)))) 0 pairs)))
+  (let [pairs (concat (partition 2 guests) (partition 2 (drop 1 guests)) (list (list (first guests) (last guests))))]
+    (reduce (fn [sum pair] (+ sum (calc-happiness table (first pair) (last pair)))) 0 pairs)))
 
 (def part1 (apply max (map (fn [guests] (table-happiness input-map guests)) (comb/permutations guestlist))))
 (def part2 (apply max (map (fn [guests] (table-happiness input-map guests)) (comb/permutations (conj guestlist :me)))))
