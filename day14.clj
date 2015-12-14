@@ -1,5 +1,4 @@
-(require 'leiningen.exec
-				 '[clojure.data.json :as json])
+(require 'leiningen.exec)
 
 (def input (slurp "input/14.txt"))
 (def limit 2503)
