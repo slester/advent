@@ -3,17 +3,10 @@
 (def input "1321131112")
 
 (defn say [n]
-  (loop [digits n
-         answer ""]
-    (let [break (split-with #(= (first n) %) digits)
-          left (count (break 0))
-          right (break 1)]
-     (if (< 0 (count digits))
-       (recur right (str answer left (first n)))
-       answer))))
+  (let [regex (re-seq #"(\d)\1*" n)]
+    (apply str (map #(str (count (first %)) (second %)) regex))))
 
-(def part1 (count (reduce (fn [output iteration] (say (seq output))) input (range 40))))
-;; (def part2 (count (reduce (fn [output iteration] (say (seq output))) part1 (range 10))))
-
-(println (str "Part 1: " part1))
-(println (str "Part 2: " part2))
+(def part1 (first (drop 40 (iterate say input))))
+(println (str "Part 1: " (count part1)))
+(def part2 (first (drop 10 (iterate say part1))))
+(println (str "Part 2: " (count part2)))
