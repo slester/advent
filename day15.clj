@@ -18,6 +18,5 @@
 
 (defn cookie-calories [amounts] (get-ingredient-amount amounts 4))
 
-;; (println "Part 1:" (apply max (pmap bake-cookies possible-amounts)))
-;; (println "Part 2 map:" (time (doall (map bake-cookies (filter #(= 500 (cookie-calories %)) possible-amounts)))))
+(println "Part 1:" (apply max (pmap bake-cookies possible-amounts)))
 (println "Part 2:" (apply max (pmap bake-cookies (filter #(= 500 (cookie-calories %)) possible-amounts))))
