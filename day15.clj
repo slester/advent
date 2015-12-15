@@ -1,5 +1,4 @@
-(require 'leiningen.exec
-         '[clojure.math.combinatorics :as comb])
+(require 'leiningen.exec)
 
 (def input (slurp "input/15.txt"))
 (def ingredient-data
