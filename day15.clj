@@ -7,7 +7,6 @@
                               (hash-map (keyword (regex 1)) (map read-string (drop 2 regex)))))
                     (clojure.string/split input #"\n"))))
 (def ingredients (keys ingredient-data))
-(def possible-amounts (filter #(= 100 (apply + (vals %))) (map #(apply merge %) (apply comb/cartesian-product (map (fn [ingredient] (map #(hash-map ingredient %) (range 101))) ingredients)))))
 
 (defn get-ingredient-amount [amounts ingredient]
   (apply + (map (fn [amount] (* (nth (get-in ingredient-data [(first amount)]) ingredient) (last amount))) amounts)))
@@ -18,5 +17,12 @@
 
 (defn cookie-calories [amounts] (get-ingredient-amount amounts 4))
 
-(println "Part 1:" (apply max (pmap bake-cookies possible-amounts)))
-(println "Part 2:" (apply max (pmap bake-cookies (filter #(= 500 (cookie-calories %)) possible-amounts))))
+(println "Part 1:" (apply max (for [x (range 101) y (range 101) z (range 101)
+                                    :let [a (- 100 x y z) ingredient-list (zipmap ingredients (list x y z a))]
+                                    :when (>= 100 (+ x y z a))]
+                                (bake-cookies ingredient-list))))
+
+(println "Part 2:" (apply max (for [x (range 101) y (range 101) z (range 101)
+                                    :let [a (- 100 x y z) ingredient-list (zipmap ingredients (list x y z a))]
+                                    :when (and (= 500 (cookie-calories ingredient-list)) (>= 100 (+ x y z a)))]
+                                (bake-cookies ingredient-list))))
