@@ -1,7 +1,7 @@
 (require 'leiningen.exec
          '[clojure.math.combinatorics :as comb])
 
-(let [presents (map read-string (clojure.string/split (slurp "input/24.txt") #"\n"))
+(let [presents (map read-string (clojure.string/split-lines (slurp "input/24.txt")))
       total-sum (apply + presents)]
 
   (println "Part 1:" (apply min (map #(apply * %)
